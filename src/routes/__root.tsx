@@ -29,14 +29,16 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "windows 10 browser" },
+      { name: "description", content: "widows 10 browser more coming soon apps and play  store" },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "windows 10 browser" },
+      { property: "og:description", content: "widows 10 browser more coming soon apps and play  store" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "windows 10 browser" },
+      { name: "twitter:description", content: "widows 10 browser more coming soon apps and play  store" },
     ],
     links: [
       {
