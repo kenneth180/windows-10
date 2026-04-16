@@ -1,17 +1,18 @@
 const recentApps = [
   { icon: "🌐", name: "Microsoft Edge", action: "browser" },
+  { icon: "📷", name: "Cámara", action: "camera" },
   { icon: "📁", name: "Explorador de archivos", action: "" },
   { icon: "⚙️", name: "Configuración", action: "" },
   { icon: "📝", name: "Bloc de notas", action: "" },
   { icon: "🎨", name: "Paint", action: "" },
-  { icon: "📧", name: "Correo", action: "" },
 ];
 
 interface StartMenuProps {
   onOpenBrowser: () => void;
+  onOpenCamera: () => void;
 }
 
-export function StartMenu({ onOpenBrowser }: StartMenuProps) {
+export function StartMenu({ onOpenBrowser, onOpenCamera }: StartMenuProps) {
   return (
     <div
       className="absolute bottom-10 left-0 z-50 flex h-[500px] w-[600px] overflow-hidden rounded-t-lg bg-[#1a1a2e]/95 text-white shadow-2xl backdrop-blur-xl"
@@ -27,6 +28,7 @@ export function StartMenu({ onOpenBrowser }: StartMenuProps) {
                 className="flex flex-col items-center gap-1 rounded-md p-3 hover:bg-white/10"
                 onClick={() => {
                   if (app.action === "browser") onOpenBrowser();
+                  if (app.action === "camera") onOpenCamera();
                 }}
               >
                 <span className="text-2xl">{app.icon}</span>
