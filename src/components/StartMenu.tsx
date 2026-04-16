@@ -1,19 +1,22 @@
 const recentApps = [
-  { icon: "🌐", name: "Microsoft Edge" },
-  { icon: "📁", name: "Explorador de archivos" },
-  { icon: "⚙️", name: "Configuración" },
-  { icon: "📝", name: "Bloc de notas" },
-  { icon: "🎨", name: "Paint" },
-  { icon: "📧", name: "Correo" },
+  { icon: "🌐", name: "Microsoft Edge", action: "browser" },
+  { icon: "📁", name: "Explorador de archivos", action: "" },
+  { icon: "⚙️", name: "Configuración", action: "" },
+  { icon: "📝", name: "Bloc de notas", action: "" },
+  { icon: "🎨", name: "Paint", action: "" },
+  { icon: "📧", name: "Correo", action: "" },
 ];
 
-export function StartMenu() {
+interface StartMenuProps {
+  onOpenBrowser: () => void;
+}
+
+export function StartMenu({ onOpenBrowser }: StartMenuProps) {
   return (
     <div
       className="absolute bottom-10 left-0 z-50 flex h-[500px] w-[600px] overflow-hidden rounded-t-lg bg-[#1a1a2e]/95 text-white shadow-2xl backdrop-blur-xl"
       onClick={(e) => e.stopPropagation()}
     >
-      {/* Left panel */}
       <div className="flex w-[280px] flex-col border-r border-white/10">
         <div className="p-4">
           <h2 className="mb-3 text-sm font-semibold tracking-wide">Ancladas</h2>
@@ -22,6 +25,9 @@ export function StartMenu() {
               <button
                 key={app.name}
                 className="flex flex-col items-center gap-1 rounded-md p-3 hover:bg-white/10"
+                onClick={() => {
+                  if (app.action === "browser") onOpenBrowser();
+                }}
               >
                 <span className="text-2xl">{app.icon}</span>
                 <span className="text-[10px] leading-tight text-white/70">{app.name}</span>
@@ -42,8 +48,6 @@ export function StartMenu() {
           </button>
         </div>
       </div>
-
-      {/* Right panel - Recommended */}
       <div className="flex-1 p-4">
         <h2 className="mb-3 text-sm font-semibold tracking-wide">Recomendadas</h2>
         <div className="space-y-1">

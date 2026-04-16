@@ -3,9 +3,17 @@ import { Taskbar } from "./Taskbar";
 import { DesktopIcons } from "./DesktopIcons";
 import { useState } from "react";
 import { StartMenu } from "./StartMenu";
+import { BrowserWindow } from "./BrowserWindow";
 
 export function Desktop() {
   const [startOpen, setStartOpen] = useState(false);
+  const [browserOpen, setBrowserOpen] = useState(false);
+  const [browserMinimized, setBrowserMinimized] = useState(false);
+
+  const openBrowser = () => {
+    setBrowserOpen(true);
+    setBrowserMinimized(false);
+  };
 
   return (
     <div
@@ -19,9 +27,29 @@ export function Desktop() {
         width={1920}
         height={1080}
       />
-      <DesktopIcons />
-      {startOpen && <StartMenu />}
-      <Taskbar onStartClick={() => setStartOpen((o) => !o)} startOpen={startOpen} />
+      <DesktopIcons onOpenBrowser={openBrowser} />
+      {browserOpen && !browserMinimized && (
+        <BrowserWindow
+          onClose={() => setBrowserOpen(false)}
+          onMinimize={() => setBrowserMinimized(true)}
+        />
+      )}
+      {startOpen && <StartMenu onOpenBrowser={openBrowser} />}
+      <Taskbar
+        onStartClick={() => setStartOpen((o) => !o)}
+        startOpen={startOpen}
+        browserOpen={browserOpen}
+        browserMinimized={browserMinimized}
+        onBrowserClick={() => {
+          if (browserOpen && !browserMinimized) {
+            setBrowserMinimized(true);
+          } else if (browserOpen && browserMinimized) {
+            setBrowserMinimized(false);
+          } else {
+            openBrowser();
+          }
+        }}
+      />
     </div>
   );
 }
