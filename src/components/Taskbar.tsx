@@ -3,6 +3,9 @@ import { useEffect, useState } from "react";
 interface TaskbarProps {
   onStartClick: () => void;
   startOpen: boolean;
+  browserOpen: boolean;
+  browserMinimized: boolean;
+  onBrowserClick: () => void;
 }
 
 function Clock() {
@@ -22,19 +25,17 @@ function Clock() {
 }
 
 const pinnedApps = [
-  { icon: "📁", name: "Explorador" },
-  { icon: "🌐", name: "Edge" },
-  { icon: "🛒", name: "Store" },
+  { icon: "📁", name: "Explorador", action: "" },
+  { icon: "🛒", name: "Store", action: "" },
 ];
 
-export function Taskbar({ onStartClick, startOpen }: TaskbarProps) {
+export function Taskbar({ onStartClick, startOpen, browserOpen, browserMinimized, onBrowserClick }: TaskbarProps) {
   return (
     <div
       className="absolute bottom-0 left-0 right-0 flex h-10 items-center bg-[#1a1a2e]/95 backdrop-blur-md"
       style={{ zIndex: 50 }}
       onClick={(e) => e.stopPropagation()}
     >
-      {/* Start button */}
       <button
         onClick={onStartClick}
         className={`flex h-full w-12 items-center justify-center transition-colors hover:bg-white/10 ${startOpen ? "bg-white/10" : ""}`}
@@ -44,7 +45,6 @@ export function Taskbar({ onStartClick, startOpen }: TaskbarProps) {
         </svg>
       </button>
 
-      {/* Search */}
       <div className="ml-1 flex h-7 w-48 items-center rounded-sm bg-white/10 px-2">
         <svg viewBox="0 0 24 24" className="mr-2 h-3.5 w-3.5 fill-none stroke-white/60" strokeWidth={2}>
           <circle cx={11} cy={11} r={7} />
@@ -53,8 +53,17 @@ export function Taskbar({ onStartClick, startOpen }: TaskbarProps) {
         <span className="text-[12px] text-white/50">Escribe aquí para buscar</span>
       </div>
 
-      {/* Pinned apps */}
       <div className="ml-2 flex h-full items-center gap-0.5">
+        {/* Edge in taskbar */}
+        <button
+          onClick={onBrowserClick}
+          className={`flex h-full w-10 items-center justify-center text-lg hover:bg-white/10 ${
+            browserOpen ? "border-b-2 border-blue-400 bg-white/5" : ""
+          }`}
+          title="Microsoft Edge"
+        >
+          🌐
+        </button>
         {pinnedApps.map((app) => (
           <button
             key={app.name}
@@ -68,7 +77,6 @@ export function Taskbar({ onStartClick, startOpen }: TaskbarProps) {
 
       <div className="flex-1" />
 
-      {/* System tray */}
       <div className="flex h-full items-center gap-2 px-3 text-white/80">
         <span className="text-xs">^</span>
         <span className="text-sm">🔊</span>
