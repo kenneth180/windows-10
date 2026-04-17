@@ -1,18 +1,35 @@
 const recentApps = [
-  { icon: "🌐", name: "Microsoft Edge", action: "browser" },
+  { icon: "🟢", name: "Google Chrome", action: "browser" },
   { icon: "📷", name: "Cámara", action: "camera" },
-  { icon: "📁", name: "Explorador de archivos", action: "" },
-  { icon: "⚙️", name: "Configuración", action: "" },
-  { icon: "📝", name: "Bloc de notas", action: "" },
+  { icon: "📁", name: "Explorador", action: "explorer" },
+  { icon: "⚙️", name: "Configuración", action: "settings" },
+  { icon: "📝", name: "Bloc de notas", action: "notepad" },
   { icon: "🎨", name: "Paint", action: "" },
 ];
 
 interface StartMenuProps {
   onOpenBrowser: () => void;
   onOpenCamera: () => void;
+  onOpenNotepad: () => void;
+  onOpenExplorer: () => void;
+  onOpenSettings: () => void;
 }
 
-export function StartMenu({ onOpenBrowser, onOpenCamera }: StartMenuProps) {
+export function StartMenu({
+  onOpenBrowser,
+  onOpenCamera,
+  onOpenNotepad,
+  onOpenExplorer,
+  onOpenSettings,
+}: StartMenuProps) {
+  const handle = (action: string) => {
+    if (action === "browser") onOpenBrowser();
+    if (action === "camera") onOpenCamera();
+    if (action === "notepad") onOpenNotepad();
+    if (action === "explorer") onOpenExplorer();
+    if (action === "settings") onOpenSettings();
+  };
+
   return (
     <div
       className="absolute bottom-10 left-0 z-50 flex h-[500px] w-[600px] overflow-hidden rounded-t-lg bg-[#1a1a2e]/95 text-white shadow-2xl backdrop-blur-xl"
@@ -26,10 +43,7 @@ export function StartMenu({ onOpenBrowser, onOpenCamera }: StartMenuProps) {
               <button
                 key={app.name}
                 className="flex flex-col items-center gap-1 rounded-md p-3 hover:bg-white/10"
-                onClick={() => {
-                  if (app.action === "browser") onOpenBrowser();
-                  if (app.action === "camera") onOpenCamera();
-                }}
+                onClick={() => handle(app.action)}
               >
                 <span className="text-2xl">{app.icon}</span>
                 <span className="text-[10px] leading-tight text-white/70">{app.name}</span>
@@ -44,6 +58,13 @@ export function StartMenu({ onOpenBrowser, onOpenCamera }: StartMenuProps) {
             </div>
             <span className="text-sm">Usuario</span>
           </div>
+          <button
+            onClick={() => onOpenSettings()}
+            className="mt-1 flex w-full items-center gap-3 rounded-md p-2 text-sm hover:bg-white/10"
+          >
+            <span>⚙️</span>
+            <span>Configuración</span>
+          </button>
           <button className="mt-1 flex w-full items-center gap-3 rounded-md p-2 text-sm hover:bg-white/10">
             <span>⏻</span>
             <span>Apagar</span>
@@ -57,6 +78,7 @@ export function StartMenu({ onOpenBrowser, onOpenCamera }: StartMenuProps) {
             (file) => (
               <button
                 key={file}
+                onClick={() => onOpenExplorer()}
                 className="flex w-full items-center gap-3 rounded-md p-2 text-left text-sm hover:bg-white/10"
               >
                 <span className="text-lg">📄</span>

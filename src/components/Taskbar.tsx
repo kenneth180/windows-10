@@ -9,6 +9,15 @@ interface TaskbarProps {
   cameraOpen: boolean;
   cameraMinimized: boolean;
   onCameraClick: () => void;
+  explorerOpen: boolean;
+  explorerMinimized: boolean;
+  onExplorerClick: () => void;
+  notepadOpen: boolean;
+  notepadMinimized: boolean;
+  onNotepadClick: () => void;
+  settingsOpen: boolean;
+  settingsMinimized: boolean;
+  onSettingsClick: () => void;
 }
 
 function Clock() {
@@ -102,21 +111,28 @@ function VolumeIcon() {
   );
 }
 
-const pinnedApps = [
-  { icon: "📁", name: "Explorador", action: "" },
-  { icon: "🛒", name: "Store", action: "" },
-];
-
 export function Taskbar({
   onStartClick,
   startOpen,
   browserOpen,
-  browserMinimized,
   onBrowserClick,
   cameraOpen,
-  cameraMinimized,
   onCameraClick,
+  explorerOpen,
+  onExplorerClick,
+  notepadOpen,
+  onNotepadClick,
+  settingsOpen,
+  onSettingsClick,
 }: TaskbarProps) {
+  const appButtons = [
+    { open: browserOpen, onClick: onBrowserClick, icon: "🟢", title: "Google Chrome" },
+    { open: explorerOpen, onClick: onExplorerClick, icon: "📁", title: "Explorador de archivos" },
+    { open: cameraOpen, onClick: onCameraClick, icon: "📷", title: "Cámara" },
+    { open: notepadOpen, onClick: onNotepadClick, icon: "📝", title: "Bloc de notas" },
+    { open: settingsOpen, onClick: onSettingsClick, icon: "⚙️", title: "Configuración" },
+  ];
+
   return (
     <div
       className="absolute bottom-0 left-0 right-0 flex h-10 items-center bg-[#1a1a2e]/95 backdrop-blur-md"
@@ -141,31 +157,16 @@ export function Taskbar({
       </div>
 
       <div className="ml-2 flex h-full items-center gap-0.5">
-        <button
-          onClick={onBrowserClick}
-          className={`flex h-full w-10 items-center justify-center text-lg hover:bg-white/10 ${
-            browserOpen ? "border-b-2 border-blue-400 bg-white/5" : ""
-          }`}
-          title="Microsoft Edge"
-        >
-          🌐
-        </button>
-        <button
-          onClick={onCameraClick}
-          className={`flex h-full w-10 items-center justify-center text-lg hover:bg-white/10 ${
-            cameraOpen ? "border-b-2 border-blue-400 bg-white/5" : ""
-          }`}
-          title="Cámara"
-        >
-          📷
-        </button>
-        {pinnedApps.map((app) => (
+        {appButtons.map((b) => (
           <button
-            key={app.name}
-            className="flex h-full w-10 items-center justify-center text-lg hover:bg-white/10"
-            title={app.name}
+            key={b.title}
+            onClick={b.onClick}
+            className={`flex h-full w-10 items-center justify-center text-lg hover:bg-white/10 ${
+              b.open ? "border-b-2 border-blue-400 bg-white/5" : ""
+            }`}
+            title={b.title}
           >
-            {app.icon}
+            {b.icon}
           </button>
         ))}
       </div>
