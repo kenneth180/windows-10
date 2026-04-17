@@ -61,7 +61,8 @@ export function BrowserWindow({ onClose, onMinimize }: BrowserWindowProps) {
       <div className="flex h-9 items-center justify-between bg-[#1f1f1f] px-2">
         <div className="flex items-center gap-2 overflow-hidden">
           <div className="flex h-7 max-w-[200px] items-center gap-1.5 rounded-t-lg bg-[#2b2b2b] px-3 text-xs text-white/80">
-            <span className="truncate">{showHome ? "New Tab" : "Browser"}</span>
+            <span>🟢</span>
+            <span className="truncate">{showHome ? "Nueva pestaña" : "Google Chrome"}</span>
           </div>
           <button className="text-xs text-white/40 hover:text-white/70">+</button>
         </div>
@@ -151,7 +152,14 @@ export function BrowserWindow({ onClose, onMinimize }: BrowserWindowProps) {
           <div className="flex h-full flex-col items-center justify-center gap-8 px-4">
             {/* Search bar */}
             <div className="text-center">
-              <h1 className="mb-6 text-4xl font-light text-white/90">Microsoft Edge</h1>
+              <h1 className="mb-6 text-5xl font-light tracking-tight">
+                <span className="text-[#4285F4]">G</span>
+                <span className="text-[#EA4335]">o</span>
+                <span className="text-[#FBBC05]">o</span>
+                <span className="text-[#4285F4]">g</span>
+                <span className="text-[#34A853]">l</span>
+                <span className="text-[#EA4335]">e</span>
+              </h1>
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
