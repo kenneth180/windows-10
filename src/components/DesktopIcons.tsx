@@ -1,18 +1,20 @@
 interface DesktopIconsProps {
   onOpenBrowser: () => void;
   onOpenCamera: () => void;
+  onOpenNotepad: () => void;
+  onOpenExplorer: () => void;
 }
 
 const icons = [
   { name: "Papelera de reciclaje", icon: "🗑️", action: "" },
-  { name: "Este equipo", icon: "💻", action: "" },
-  { name: "Microsoft Edge", icon: "🌐", action: "browser" },
-  { name: "Explorador de archivos", icon: "📁", action: "" },
-  { name: "Bloc de notas", icon: "📝", action: "" },
+  { name: "Este equipo", icon: "💻", action: "explorer" },
+  { name: "Google Chrome", icon: "🟢", action: "browser" },
+  { name: "Explorador de archivos", icon: "📁", action: "explorer" },
+  { name: "Bloc de notas", icon: "📝", action: "notepad" },
   { name: "Cámara", icon: "📷", action: "camera" },
 ];
 
-export function DesktopIcons({ onOpenBrowser, onOpenCamera }: DesktopIconsProps) {
+export function DesktopIcons({ onOpenBrowser, onOpenCamera, onOpenNotepad, onOpenExplorer }: DesktopIconsProps) {
   return (
     <div className="absolute top-2 left-2 flex flex-col gap-1">
       {icons.map((item) => (
@@ -22,6 +24,8 @@ export function DesktopIcons({ onOpenBrowser, onOpenCamera }: DesktopIconsProps)
           onDoubleClick={() => {
             if (item.action === "browser") onOpenBrowser();
             if (item.action === "camera") onOpenCamera();
+            if (item.action === "notepad") onOpenNotepad();
+            if (item.action === "explorer") onOpenExplorer();
           }}
         >
           <span className="text-3xl drop-shadow-lg">{item.icon}</span>
